@@ -1,3 +1,4 @@
+url = "";
 var casper = require('casper').create({
     pageSettings: {
         loadImages: false,//The script is much faster when this field is set to false
@@ -27,27 +28,12 @@ casper.waitForSelector("#facebook", function() {
 });
 
 
-var images = [];
-
-casper.GetImages = function() {
-    images = this.evaluate(function() {
-        var scripts = document.querySelectorAll('img[src]');
-            return Array.prototype.map.call(scripts, function (e) {
-                return e.getAttribute('src');
-        });
-    });
-    this.echo('** Successfully got the images... **');
-    return true;
-};
-
-
-casper.thenOpen('https://www.facebook.com/lissette.mittag/friends?lst=100014363235047%3A100011698361084%3A1481036595&source_ref=pb_friends_tl', function() {
+casper.thenOpen(url, function() {
     for(var i = 0; i < 4; i++) {
         this.wait(350, function() {
             this.scrollToBottom();
         });
     }
-
 });
 
 casper.then(function(){
