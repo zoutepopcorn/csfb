@@ -1,7 +1,3 @@
-user = "";
-pass = "";
-page = "";
-
 var casper = require('casper').create({
     pageSettings: {
         loadImages: false,//The script is much faster when this field is set to false
@@ -15,12 +11,13 @@ casper.start().thenOpen("https://facebook.com", function() {
         console.log("Facebook website opened");
 });
 
+
 //Now we have to populate username and password, and submit the form
 casper.then(function(){
     console.log("Login using username and password");
     this.evaluate(function(){
-        document.getElementById("email").value=user;
-    		document.getElementById("pass").value=pass;
+        document.getElementById("email").value="";
+    		document.getElementById("pass").value="";
     		document.getElementById("loginbutton").children[0].click();
     });
 });
@@ -44,8 +41,8 @@ casper.GetImages = function() {
 };
 
 
-casper.thenOpen(page, function() {
-    for(var i = 0; i < 40; i++) {
+casper.thenOpen('https://www.facebook.com/lissette.mittag/friends?lst=100014363235047%3A100011698361084%3A1481036595&source_ref=pb_friends_tl', function() {
+    for(var i = 0; i < 4; i++) {
         this.wait(350, function() {
             this.scrollToBottom();
         });
